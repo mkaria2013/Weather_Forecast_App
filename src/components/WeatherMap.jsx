@@ -65,9 +65,9 @@ const WeatherMap = ({ data }) => {
   };
 
   // Handle case where data is null or undefined
-  // if (!data) {
-  //   return <div>Loading data...</div>; // or render a loading indicator or error message
-  // }
+  if (!data) {
+    return <div className='text-white text-xl'>Loading Map...</div>; // or render a loading indicator or error message
+  }
 
   return (
     <MapContainer center={mapCenter} zoom={zoomLevel} className='w-6/12 border-transparent border-solid border-2 rounded-2xl m-2 p-3 bg-black-glass'>

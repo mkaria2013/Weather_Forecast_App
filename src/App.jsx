@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import location from '../src/assets/location.svg'
 import CurrentWeather from './components/CurrentWeather.jsx';
-import Map from './components/Map.jsx'
+import WeatherMap from './components/WeatherMap.jsx'
+import Information from './components/Information.jsx';
 
 export default function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -121,8 +122,8 @@ export default function App() {
       {/* Components */}
       <div className='flex flex-wrap justify-center m-3'>
         <CurrentWeather data={weatherData} />
-        <Map data={weatherData} />
-        <CurrentWeather data={weatherData} />
+        <WeatherMap data={weatherData} />
+        <Information />
       </div>
     </>
 
