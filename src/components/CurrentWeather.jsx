@@ -1,8 +1,8 @@
 import React from "react";
 import { Time } from './Time.jsx';
 import wind_svg from '../assets/wind.svg';
-import rain_svg from '../assets/rain.svg';
-import uv_index_svg from '../assets/uv_index.svg';
+import sealevel from '../assets/sealevel.svg';
+import pressure from '../assets/pressure.svg';
 import humidity_svg from '../assets/humidity.svg';
 
 export default function CurrentWeather(props) {
@@ -28,10 +28,10 @@ export default function CurrentWeather(props) {
                     <div><Time /></div>
                 </div>
 
-                <div className='flex flex-wrap items-center text-4xl p-2 gap-3'>
+                <div className='flex flex-wrap justify-center items-center text-4xl p-2 gap-3'>
                     {/* Image or Icon: Change according to weather */}
-                    <div className='w-24'>
-                        <img src='../temp/weather-overcast-partly-rain-icon-in-duo-tone-color-forecast-raining-season-monsoon-vector.jpg' alt="Weather Icon" />
+                    <div className='w-24 scale-150 justify-center flex flex-wrap'>
+                        <img src={`https://openweathermap.org/img/wn/${weather[0].icon}.png`} alt="Weather Icon" />
                     </div>
 
                     <div>
@@ -46,12 +46,12 @@ export default function CurrentWeather(props) {
                         </div>
 
                         {/* Weather condition in words */}
-                        <span className='text-xl align-top uppercase'>{weather[0].description}</span>
+                        <span className='text-xs flex-wrap align-top capitalize'>{weather[0].description}</span>
                     </div>
                 </div>
 
                 {/* Other weather-related information */}
-                <div className='flex flex-wrap gap-2 font-montserrat text-xs font-bold'>
+                <div className='flex justify-around flex-wrap gap-2 font-montserrat text-xs font-bold'>
                     {/* Wind */}
                     <div className='p-2'>
                         <img src={wind_svg} className='w-10' alt="Wind Icon" />
@@ -59,22 +59,24 @@ export default function CurrentWeather(props) {
                         <div className='p-1 text-center'>KM/H</div>
                     </div>
 
-                    {/* Rain */}
+                    {/* Sea Level */}
                     <div className='p-2'>
-                        <img src={rain_svg} className='w-10' alt="Rain Icon" />
-                        <div className='p-1 text-center'></div>
+                        <img src={sealevel} className='w-10' alt="Rain Icon" />
+                        <div className='p-1 text-center'>{main.sea_level}</div>
+                        <div className='p-1 text-center'>hPa</div>
                     </div>
 
-                    {/* UV Index */}
+                    {/* Pressure */}
                     <div className='p-2'>
-                        <img src={uv_index_svg} className='w-10' alt="UV Index Icon" />
-                        <div className='p-1 text-center'>33</div>
+                        <img src={pressure} className='w-10' alt="UV Index Icon" />
+                        <div className='p-1 text-center'>{main.pressure}</div>
+                        <div className='p-1 text-center'>hPa</div>
                     </div>
 
                     {/* Humidity */}
                     <div className='p-2'>
                         <img src={humidity_svg} className='w-10' alt="Humidity Icon" />
-                        <div className='p-1 text-center'>{main.humidity}</div>
+                        <div className='p-1 text-center'>{main.humidity} %</div>
                     </div>
                 </div>
             </div>
