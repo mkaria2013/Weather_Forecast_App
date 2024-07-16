@@ -10,10 +10,10 @@ export default function CurrentWeather(props) {
     const { data } = props;
 
     if (!data) {
-        return <div>Loading...</div>;
+        return <div className="text-white text-xl">Loading...</div>;
     }
 
-    const { main, weather, wind, rain } = data;
+    const { main, weather, wind } = data;
 
     const temp = (main.temp - 273.15).toFixed(0);
 
