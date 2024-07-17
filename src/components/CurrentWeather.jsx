@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Time } from './Time.jsx';
 import wind_svg from '../assets/wind.svg';
 import sealevel from '../assets/sealevel.svg';
@@ -8,14 +8,35 @@ import humidity_svg from '../assets/humidity.svg';
 export default function CurrentWeather(props) {
     // Destructuring props to extract data
     const { data } = props;
+    const [temp, setTemp] = useState(null);
+    const [unit, setUnit] = useState(null);
 
+    useEffect(() => {
+        if (data) {
+            const Ctemp = (data.main.temp - 273.15).toFixed(0);
+            setTemp(Ctemp);
+            setUnit("C");
+        }
+    }, [data]);
+    
     if (!data) {
         return <div className="text-white text-xl">Loading...</div>;
     }
-
+    
     const { main, weather, wind } = data;
 
-    const temp = (main.temp - 273.15).toFixed(0);
+    const unitChange = () => {
+        if(unit == 'C'){
+            const Ftemp = ((main.temp - 273.15) * 9/5 + 32).toFixed(0);
+            setTemp(Ftemp);
+            setUnit("F");
+        }
+        if(unit == 'F'){
+            const Ctemp = (main.temp - 273.15).toFixed(0);
+            setTemp(Ctemp);
+            setUnit("C");
+        }       
+    }
 
     return (
         <>
@@ -35,13 +56,13 @@ export default function CurrentWeather(props) {
                     </div>
 
                     <div>
-                        <div className='flex'>
+                        <div className='flex'  onClick={unitChange}>
                             {/* Temperature */}
                             <div className='font-montserrat font-bold'>{temp}</div>
                             <sup className='font-montserrat font-bold text-sm mb-3 p-1'>
                                 <sup className='font-montserrat font-bold text-sm'>•</sup>
                                 {/* Celsius or Fahrenheit */}
-                                C
+                                {unit}
                             </sup>
                         </div>
 

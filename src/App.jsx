@@ -54,13 +54,13 @@ export default function App() {
   return (
     <>
       {/* Search Bar Component */}
-      <div>
+      <div className='font-montserrat'>
         <label
           className="mx-auto mt-2 relative min-w-sm max-w-xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2"
           htmlFor="search-bar">
 
           <input id="search-bar" placeholder="Enter City" htmlFor="city"
-            className="px -6 py-2 w-full rounded-md flex-1 outline-none bg-transparent placeholder-white text-white" onChange={(e) => setCity(e.target.value)} />
+            className="font-montserrat font-bold px -6 py-2 w-full rounded-md flex-1 outline-none bg-transparent placeholder-white text-white" onChange={(e) => setCity(e.target.value)} />
           <button
             className="w-full border-white md:w-auto px-6 py-3 text-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70" onClick={OnHandleClick}>
 

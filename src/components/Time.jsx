@@ -20,7 +20,7 @@ const Time = () => {
     const ampm = hours >= 12 ? 'PM' : 'AM';
 
     return (
-        <div className='text-xs'>
+        <div className='text-xs '>
             {`${hours12.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${ampm}`}
             {/* {`${hours12.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`} */}
 
