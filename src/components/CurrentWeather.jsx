@@ -3,8 +3,8 @@ import { Time } from './Time.jsx';
 import wind_svg from '../assets/wind.svg';
 import sealevel from '../assets/sealevel.svg';
 import pressure from '../assets/pressure.svg';
-import humidity_svg from '../assets/humidity.svg';
-
+import humidity from '../assets/humidity.svg';
+import city from '../assets/city.svg'
 export default function CurrentWeather(props) {
     // Destructuring props to extract data
     const { data } = props;
@@ -18,24 +18,24 @@ export default function CurrentWeather(props) {
             setUnit("C");
         }
     }, [data]);
-    
+
     if (!data) {
         return <div className="text-white text-xl">Loading...</div>;
     }
-    
-    const { main, weather, wind } = data;
+
+    const { name, main, weather, wind } = data;
 
     const unitChange = () => {
-        if(unit == 'C'){
-            const Ftemp = ((main.temp - 273.15) * 9/5 + 32).toFixed(0);
+        if (unit == 'C') {
+            const Ftemp = ((main.temp - 273.15) * 9 / 5 + 32).toFixed(0);
             setTemp(Ftemp);
             setUnit("F");
         }
-        if(unit == 'F'){
+        if (unit == 'F') {
             const Ctemp = (main.temp - 273.15).toFixed(0);
             setTemp(Ctemp);
             setUnit("C");
-        }       
+        }
     }
 
     return (
@@ -44,9 +44,14 @@ export default function CurrentWeather(props) {
                 <div className="font-montserrat font-bold p-2">
                     {/* Current Weather Title */}
                     <div>Current Weather</div>
-
                     {/* Time Component: Show Current Time */}
                     <div><Time /></div>
+
+                    {/* Current City Name */}
+                    <div className="text-center flex justify-center text-3xl pt-3">
+                        <img src={city} className="pr-2 scale-150"></img>
+                        {name}
+                    </div>
                 </div>
 
                 <div className='flex flex-wrap justify-center items-center text-4xl p-2 gap-3'>
@@ -56,7 +61,7 @@ export default function CurrentWeather(props) {
                     </div>
 
                     <div>
-                        <div className='flex'  onClick={unitChange}>
+                        <div className='flex' onClick={unitChange}>
                             {/* Temperature */}
                             <div className='font-montserrat font-bold'>{temp}</div>
                             <sup className='font-montserrat font-bold text-sm mb-3 p-1'>
@@ -96,7 +101,7 @@ export default function CurrentWeather(props) {
 
                     {/* Humidity */}
                     <div className='p-2'>
-                        <img src={humidity_svg} className='w-10' alt="Humidity Icon" />
+                        <img src={humidity} className='w-10' alt="Humidity Icon" />
                         <div className='p-1 text-center'>{main.humidity} %</div>
                     </div>
                 </div>
