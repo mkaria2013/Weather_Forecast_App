@@ -10,6 +10,7 @@ export default function Information(props) {
     const [lon, setLon] = useState(null);
     const [lat, setLat] = useState(null);
     const [data, setData] = useState(null);
+    const [unit, setUnit] = useState("C");
 
     const API_KEY = `b88201ee87dc72048a7c6969c4d77452`;
 
@@ -66,16 +67,31 @@ export default function Information(props) {
         return (tempKelvin - 273.15).toFixed(0); // Convert Kelvin to Celsius and format to 1 decimal place
     };
 
+    const convertCelsiusToFahrenheit = (tempCelsius) => {
+        return ((tempCelsius * 9 / 5) + 32).toFixed(0); // Convert Celsius to Fahrenheit and format to 1 decimal place
+    };
+
+    const toggleTemperatureUnit = () => {
+        setUnit(prevUnit => (prevUnit === "C" ? "F" : "C"));
+    };
+
+    const getTemperatureValue = (tempKelvin) => {
+        const tempCelsius = convertKelvinToCelsius(tempKelvin);
+        const tempFahrenheit = convertCelsiusToFahrenheit(tempCelsius);
+
+        return unit === "C" ? `${tempCelsius}` : `${tempFahrenheit}`;
+    };
+
     return (
         <>
-            <div className='font-montserrat border-transparent scrollbar scrollbar-thumb-slate-700 scrollbar-track-slate-300 flex overflow-auto border-solid border-2 rounded-2xl w-max m-2 p-3 bg-black-glass text-white'>
+            <div className='font-montserrat border-transparent scrollbar scrollbar-thumb-slate-700 scrollbar-track-slate-300 flex overflow-auto border-solid border-2 rounded-2xl w-max m-2 p-3 bg-black-glass'>
                 <div className="font-montserrat flex p-2">
 
                     {!data ? (
                         <p>Loading data</p>
                     ) : (
                         data.list.map((item, index) => (
-                            <div className='border-solid border-2 align-middle items-center rounded-2xl w-max m-2 p-3 text-white hover:scale-105 transition ease-in-out' key={index}>
+                            <div className='border-solid border-2 align-middle items-center rounded-2xl w-max m-2 p-3 text-black hover:scale-105 transition ease-in-out' key={index}>
                                 <div className="font-montserrat text-center font-bold p-2">
                                     {/* Time Component: Show Current Time */}
                                     <div>{formatDate(item.dt)} | {getWeekday(item.dt)}</div>
@@ -89,13 +105,13 @@ export default function Information(props) {
                                     </div>
 
                                     <div>
-                                        <div className='flex mt-5'>
+                                        <div className='flex mt-5' onClick={toggleTemperatureUnit}>
                                             {/* Temperature */}
-                                            <div className='font-montserrat font-bold'>{convertKelvinToCelsius(item.main.temp)}</div>
+                                            <div className='font-montserrat font-bold'>{getTemperatureValue(item.main.temp)}</div>
                                             <sup className='font-montserrat font-bold text-sm mb-3 p-1'>
                                                 <sup className='font-montserrat font-bold text-sm'>•</sup>
                                                 {/* Celsius or Fahrenheit */}
-                                                C
+                                                {unit}
                                             </sup>
                                         </div>
 

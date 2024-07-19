@@ -1,7 +1,7 @@
 import './App.css'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import location from '../src/assets/location.svg'
+import location from '../src/assets/city.svg'
 import CurrentWeather from './components/CurrentWeather.jsx';
 import WeatherMap from './components/WeatherMap.jsx'
 import Information from './components/Information.jsx';
@@ -60,7 +60,7 @@ export default function App() {
           htmlFor="search-bar">
 
           <input id="search-bar" placeholder="Enter City" htmlFor="city"
-            className="font-montserrat font-bold px -6 py-2 w-full rounded-md flex-1 outline-none bg-transparent placeholder-white text-white" onChange={(e) => setCity(e.target.value)} />
+            className="font-montserrat font-bold px -6 py-2 w-full rounded-md flex-1 outline-none bg-transparent placeholder-slate-200 text-white" onChange={(e) => setCity(e.target.value)} />
           <button
             className="w-full border-white md:w-auto px-6 py-3 text-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70" onClick={OnHandleClick}>
 

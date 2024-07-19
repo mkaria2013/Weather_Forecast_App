@@ -40,7 +40,7 @@ export default function CurrentWeather(props) {
 
     return (
         <>
-            <div className='border-transparent border-solid border-2 rounded-2xl w-max m-2 p-3 bg-black-glass text-white hover:scale-110 transition ease-in-out'>
+            <div className='border-transparent border-solid border-2 rounded-2xl w-max m-2 p-3 bg-black-glass text-black'>
                 <div className="font-montserrat font-bold p-2">
                     {/* Current Weather Title */}
                     <div>Current Weather</div>
