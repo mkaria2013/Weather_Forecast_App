@@ -61,7 +61,7 @@ export default function CurrentWeather(props) {
                     </div>
 
                     <div>
-                        <div className='flex' onClick={unitChange}>
+                        <div className='flex mt-5' onClick={unitChange}>
                             {/* Temperature */}
                             <div className='font-montserrat font-bold'>{temp}</div>
                             <sup className='font-montserrat font-bold text-sm mb-3 p-1'>

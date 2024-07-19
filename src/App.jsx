@@ -125,7 +125,7 @@ export default function App() {
         <WeatherMap data={weatherData} />
       </div>
       <div className='flex flex-wrap justify-center m-3'>
-        <Information />
+        {weatherData && <Information data={weatherData} />}
       </div>
     </>
 
