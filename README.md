@@ -15,6 +15,7 @@ The Weather Forecast App is a modern React application that provides current wea
 # Technologies Used
 
 - **React**: Front-end library for building user interfaces.
+- **Vite**: Next-generation frontend tool for fast builds and development.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 - **Axios**: Promise-based HTTP client for making requests.
 - **OpenWeatherMap API**: Provides weather data.
