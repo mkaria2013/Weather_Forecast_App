@@ -10,7 +10,7 @@ export default function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [city, setCity] = useState('');
 
-  const API_KEY = `b88201ee87dc72048a7c6969c4d77452`;
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     const fetchData = async () => {

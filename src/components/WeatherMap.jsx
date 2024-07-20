@@ -9,7 +9,7 @@ const WeatherMap = ({ data }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const zoomLevel = 7.5;
-  const apiKey = 'b88201ee87dc72048a7c6969c4d77452'; // Use environment variable
+  const API_KEY = import.meta.env.VITE_API_KEY; // Use environment variable
 
   // Update map center when city changes
   useEffect(() => {
@@ -25,7 +25,7 @@ const WeatherMap = ({ data }) => {
       if (data && data.coord) {
         const { lon, lat } = data.coord;
         try {
-          const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+          const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`);
           if (!response.ok) {
             throw new Error('Weather data not available');
           }
@@ -40,7 +40,7 @@ const WeatherMap = ({ data }) => {
     };
 
     fetchWeatherData();
-  }, [data, apiKey]);
+  }, [data, API_KEY]);
 
   // Memoize the icon to avoid re-creating it on each render
   const weatherIcon = useMemo(() => {

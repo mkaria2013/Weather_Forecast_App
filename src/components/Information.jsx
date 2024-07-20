@@ -12,7 +12,7 @@ export default function Information(props) {
     const [data, setData] = useState(null);
     const [unit, setUnit] = useState("C");
 
-    const API_KEY = `b88201ee87dc72048a7c6969c4d77452`;
+    const API_KEY = import.meta.env.VITE_API_KEY;
 
     useEffect(() => {
         if (props.data && props.data.coord) {
