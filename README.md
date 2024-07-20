@@ -142,4 +142,4 @@ The map feature uses Leaflet and React-Leaflet to display the location of the se
 
 ## Contact
 
-For questions or issues, please open an issue on the GitHub repository or contact the maintainer at [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/tejdekiwadiya).
+For questions or issues, please open an issue on the GitHub repository or contact the maintainer at [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/tejdekiwadiya)
