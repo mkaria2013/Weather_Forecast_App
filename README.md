@@ -63,15 +63,8 @@ The Weather Forecast App is a modern React application that provides current wea
 5. **Start the development server:**
 
    ```bash
-   npm start
+    npm run dev
    ```
-
-   or
-
-   ```bash
-   yarn start
-   ```
-
    The application will be available at `http://localhost:3000`.
 
 # Tailwind CSS Configuration
