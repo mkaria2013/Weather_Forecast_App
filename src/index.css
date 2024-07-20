@@ -10,6 +10,7 @@
 
 ::-webkit-scrollbar-button {
   display: none;
+  scrollbar-width: 0;
 }
 
 body {
@@ -33,4 +34,22 @@ body {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(7.6px);
   -webkit-backdrop-filter: blur(7.6px);
+}
+
+.hidescroll {
+  scrollbar-width: none;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-88%);
+  }
+}
+
+.scrolling-content {
+  animation: scroll 200s linear infinite;
 }

@@ -84,8 +84,9 @@ export default function Information(props) {
 
     return (
         <>
-            <div className='font-montserrat border-transparent scrollbar scrollbar-thumb-slate-700 scrollbar-track-slate-300 flex overflow-auto border-solid border-2 rounded-2xl w-max m-2 p-3 bg-black-glass'>
-                <div className="font-montserrat flex p-2">
+            {/* overflow-hidden to overflow-scroll for scroll button */}
+            <div className='hidescroll font-montserrat border-transparent scrollbar scrollbar-thumb-slate-700 scrollbar-track-slate-300 flex overflow-hidden border-solid border-2 rounded-2xl w-max m-2 p-3 bg-black-glass'>
+                <div className="font-montserrat flex p-2 scrolling-content">
 
                     {!data ? (
                         <p>Loading data</p>
