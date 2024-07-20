@@ -60,25 +60,7 @@ The Weather Forecast App is a modern React application that provides current wea
    VITE_API_KEY=your-api-key-here
    ```
 
-5. **Install additional dependencies for the map:**
-
-   ```bash
-   npm install leaflet react-leaflet
-   ```
-
-   or
-
-   ```bash
-   yarn add leaflet react-leaflet
-   ```
-
-6. **Include Leaflet CSS in your `src/index.css` (or `src/index.scss`):**
-
-   ```css
-   @import "~leaflet/dist/leaflet.css";
-   ```
-
-7. **Start the development server:**
+5. **Start the development server:**
 
    ```bash
    npm start
