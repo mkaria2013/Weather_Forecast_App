@@ -57,7 +57,7 @@ The Weather Forecast App is a modern React application that provides current wea
 4. **Create a `.env` file in the root directory of the project and add your OpenWeatherMap API key:**
 
    ```env
-   VITE_API_KEY=b88201ee87dc72048a7c6969c4d77452
+   VITE_API_KEY=your-api-key-here
    ```
 
 5. **Install additional dependencies for the map:**
