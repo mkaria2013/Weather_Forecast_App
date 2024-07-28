@@ -122,10 +122,11 @@ export default function App() {
       {/* Components */}
       <div className='flex flex-wrap justify-center m-3'>
         <CurrentWeather data={weatherData} />
-        <WeatherMap data={weatherData} />
+        {/*<WeatherMap data={weatherData} />
       </div>
       <div className='flex flex-wrap justify-center m-3'>
         {weatherData && <Information data={weatherData} />}
+         */}
       </div>
     </>
 
