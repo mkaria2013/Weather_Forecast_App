@@ -1,12 +1,11 @@
-import './App.css'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import location from '../src/assets/city.svg'
-import CurrentWeather from './components/CurrentWeather.jsx';
-import WeatherMap from './components/WeatherMap.jsx'
-import Information from './components/Information.jsx';
+import location from '../assets/city.svg'
+import CurrentWeather from './CurrentWeather.jsx';
+import WeatherMap from './WeatherMap.jsx'
+import Information from './Information.jsx';
 
-export default function App() {
+export default function Dashboard() {
   const [weatherData, setWeatherData] = useState(null);
   const [city, setCity] = useState('');
 
