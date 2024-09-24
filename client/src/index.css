@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  scrollbar-width: 0;
+}
+
+body {
+  /* background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12); */
+  /* background-color: #0093E9; */
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  background-repeat: no-repeat;
+  height: 100%;
+  scrollbar-width: 0;
+}
+
+.montserrat {
+  font-family: 'Montserrat', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.bg-black-glass {
+  background: rgba(224, 224, 224, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.6px);
+  -webkit-backdrop-filter: blur(7.6px);
+}
+
+.hidescroll {
+  scrollbar-width: none;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-88%);
+  }
+}
+
+.scrolling-content {
+  animation: scroll 200s linear infinite;
+}
+
+.formclass {
+  font-family: 'Montserrat', sans-serif;
+
+  .heading {
+    margin: 0;
+    text-align: center;
+    font-weight: bolder;
+  }
+
+  .form {
+    overflow: hidden;
+    background-color: rgb(10, 179, 222);
+    padding: 25px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    transform: translate(-50%, -50%);
+    transition: transform 300ms, box-shadow 300ms;
+    box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+  }
+
+  .form::before,
+  .form::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-top-left-radius: 40%;
+    border-top-right-radius: 45%;
+    border-bottom-left-radius: 35%;
+    border-bottom-right-radius: 40%;
+    z-index: -1;
+  }
+
+  .form::before {
+    padding: 20rem;
+    left: 40%;
+    bottom: -30%;
+    background-color: hwb(0 91% 9% / 0.365);
+    animation: wawes 6s infinite linear;
+  }
+
+  .form::after {
+    padding: 25rem;
+    left: 40%;
+    bottom: -25%;
+    background-color: rgba(255, 255, 255, 0.182);
+    animation: wawes 7s infinite;
+  }
+
+  .form>.inputclass {
+    font-family: 'Asap', sans-serif;
+    display: block;
+    border-radius: 5px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.682);
+    width: 100%;
+    border: 0;
+    padding: 8px 8px;
+    margin: 15px 0px;
+  }
+
+  .btn {
+    font-weight: bolder;
+    font-family: 'Asap', sans-serif;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 16px;
+    text-transform: uppercase;
+    width: 80px;
+    border: 0;
+    padding: 10px 0;
+    border-radius: 5px;
+    background-color: #005c6e;
+    transition: background-color 300ms;
+  }
+
+  .btn:hover {
+    background-color: white;
+    color: black;
+    font-weight: bolder;
+  }
+
+  .button {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: row-reverse;
+  }
+
+  @keyframes wawes {
+    from {
+      transform: rotate(0);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 12px;
+  }
+
+  .selection {
+    display: flex;
+  }
+
+  .container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .container .inputclass {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+  }
+
+  .container:hover .inputclass~.checkmark {
+    background-color: #9f9f9f;
+  }
+
+  .container .inputclass:checked~.checkmark {
+    background-color: #1973bd;
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .container .inputclass:checked~.checkmark:after {
+    display: block;
+  }
+
+  .container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+  }
+
+  .error {
+    color: red;
+    font-weight: bolder;
+    text-align: center;
+    padding: 5px;
+    align-items: center;
+    margin: 5px;
+    transition: opacity 0.4s ease-in-out;
+    opacity: 0;
+  }
+
+  .error-visible {
+    opacity: 1;
+  }
+}
