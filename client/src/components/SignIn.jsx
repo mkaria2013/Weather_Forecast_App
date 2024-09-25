@@ -5,49 +5,115 @@ import { useAuth } from '../context/AuthContext';
 import { API } from '../API/api.jsx';
 
 const Login = () => {
+    // ==================== Constants ====================
+    // DefaultInputs object for managing form state
+    const DefaultInputs = {
+        username: "",
+        password: "",
+        error: ""
+    };
 
-    const [error, setError] = useState('');
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const data = { username, password };
+    // ==================== State ====================
+    const [DefaultInputsData, setDefaultInputsData] = useState(DefaultInputs);
     
+    // Get login function from AuthContext
     const { login } = useAuth();
-    
+    // Hook for navigation
     const navigate = useNavigate();
 
-    const submitHandle = async (e) => {
+    // ==================== Error Handling ====================
+    const handleError = (errorMessage) => {
+        setDefaultInputsData((prev) => ({
+            ...prev,
+            error: errorMessage
+        }));
+        // Clear error message after 5 seconds
         setTimeout(() => {
-            setError('');
-        }, 5000)
+            setDefaultInputsData((prev) => ({
+                ...prev,
+                error: ""
+            }));
+        }, 5000);
+    };
+
+    // ==================== Input Handlers ====================
+    // Handler for username input change
+    const handleUsernameChange = (e) => {
+        setDefaultInputsData((prev) => ({ 
+            ...prev, 
+            username: e.target.value 
+        }));
+    };
+
+    // Handler for password input change
+    const handlePasswordChange = (e) => {
+        setDefaultInputsData((prev) => ({ 
+            ...prev, 
+            password: e.target.value 
+        }));
+    };
+
+    // ==================== Form Submission ====================
+    const submitHandle = async (e) => {
         e.preventDefault();
-        try {
-            const res = await axios.post(API.SIGNIN, data, { withCredentials: true });
-            login();
-            navigate('/dashboard');
+        
+        // Destructure username and password from state
+        const { username, password } = DefaultInputsData;
 
-            // // FOR CONSOLE USE ONLY
-            // console.log(res.data.message);
-        } catch (e) {
-            setError("User Not Found")
+        // Check if both fields are filled
+        if (!username || !password) {
+            handleError("⚠️ Both fields are required");
+            return;
         }
-    }
 
+        try {
+            // Send login request to the API
+            const res = await axios.post(API.SIGNIN, DefaultInputsData, { withCredentials: true });
+            login(); // Trigger login from AuthContext
+            navigate('/dashboard'); // Redirect after successful login
+
+            // For console use only
+            // console.log(res.data.message);
+        } catch (error) {
+            console.error("Login error:", error);
+            handleError("⚠️ User Not Found"); // Handle login error
+        }
+    };
+
+    // ==================== Render ====================
     return (
-        <>
-            <div className='formclass'>
-                <div className="form">
-                    <h1 className='heading text-3xl'>Sign In</h1>
+        <div className='formclass'>
+            <div className="form">
+                <h1 className='heading text-3xl'>Sign In</h1>
 
-                    <h5 className={`error ${error ? 'error-visible' : ''}`}>{error}</h5>
+                {/* Display error message if present */}
+                <h5 className={`error ${DefaultInputsData.error ? 'error-visible' : ''}`}>{DefaultInputsData.error}</h5>
 
-                    <input className='inputclass' value={username} type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
-                    <input className='inputclass' value={password} type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />  <div className='button'>
-                        <button className='btn' onClick={submitHandle}>Login</button>
-                        <button className='btn' onClick={(e) => navigate('/signup')}>SignUp</button>
-                    </div>
+                {/* Username input field */}
+                <input
+                    className='inputclass'
+                    value={DefaultInputsData.username}
+                    type="text"
+                    placeholder="Username"
+                    onChange={handleUsernameChange} // Use the new handler
+                />
+                {/* Password input field */}
+                <input
+                    className='inputclass'
+                    value={DefaultInputsData.password}
+                    type="password"
+                    placeholder="Password"
+                    onChange={handlePasswordChange} // Use the new handler
+                />
+                
+                <div className='button'>
+                    {/* Button for login submission */}
+                    <button className='btn' onClick={submitHandle}>Login</button>
+                    {/* Button to navigate to signup page */}
+                    <button className='btn' onClick={() => navigate('/signup')}>Sign Up</button>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

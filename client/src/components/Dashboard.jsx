@@ -4,12 +4,16 @@ import location from '../assets/city.svg'
 import CurrentWeather from './CurrentWeather.jsx';
 import WeatherMap from './WeatherMap.jsx'
 import Information from './Information.jsx';
+import { useAuth } from '../context/AuthContext';
+import { API } from '../API/api.jsx';
 
 export default function Dashboard() {
   const [weatherData, setWeatherData] = useState(null);
   const [city, setCity] = useState('');
 
   const API_KEY = import.meta.env.VITE_API_KEY;
+
+  const { logout } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +36,16 @@ export default function Dashboard() {
 
     fetchData();
   }, []);
+
+  const userLogout = async () => {
+    try {
+        await axios.post(API.LOGOUT, {}, { withCredentials: true });
+        logout();
+        navigate('/');
+    } catch (error) {
+        console.error("Error logging out:", error);
+    }
+}
 
   const fetchWeatherData = async () => {
     if (!city) {
@@ -88,7 +102,7 @@ export default function Dashboard() {
 
           </button>
           <button
-            className="w-full border-white md:w-auto px-6 py-3 text-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70" onClick={() => window.location.reload()}>
+            className="w-full border-white md:w-auto px-6 py-3 text-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70" onClick={() => logout()}>
 
             <div className="relative">
 

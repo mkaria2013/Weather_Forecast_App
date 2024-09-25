@@ -2,17 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
 
 const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
     username: {
-        type: String,
-        trim: true,
-        unique: true,
-        required: true
-    },
-    email: {
         type: String,
         trim: true,
         unique: true,
@@ -22,6 +12,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true
+    },
+    city: {
+        type: String,
+        trim: true,
+        require: true
     }
 }, { timestamps: true });
 
