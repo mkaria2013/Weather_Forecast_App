@@ -70,7 +70,10 @@ const WeatherMap = ({ data }) => {
   }
 
   return (
-    <MapContainer center={mapCenter} zoom={zoomLevel} className='w-6/12 border-transparent border-solid border-2 rounded-2xl m-2 p-3 bg-black-glass hover:scale-110 transition ease-in-out'>
+    <MapContainer 
+      center={mapCenter} 
+      zoom={zoomLevel} 
+      className='w-6/12 border-transparent border-solid border-2 rounded-2xl m-2 p-3 bg-black-glass hover:scale-110 transition ease-in-out'>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -23,6 +23,7 @@ const Login = () => {
 
     // ==================== Error Handling ====================
     const handleError = (errorMessage) => {
+        // Update the state with the provided error message
         setDefaultInputsData((prev) => ({
             ...prev,
             error: errorMessage
@@ -41,7 +42,7 @@ const Login = () => {
     const handleUsernameChange = (e) => {
         setDefaultInputsData((prev) => ({ 
             ...prev, 
-            username: e.target.value 
+            username: e.target.value // Update username state
         }));
     };
 
@@ -49,33 +50,32 @@ const Login = () => {
     const handlePasswordChange = (e) => {
         setDefaultInputsData((prev) => ({ 
             ...prev, 
-            password: e.target.value 
+            password: e.target.value // Update password state
         }));
     };
 
     // ==================== Form Submission ====================
     const submitHandle = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default form submission behavior
         
         // Destructure username and password from state
         const { username, password } = DefaultInputsData;
 
         // Check if both fields are filled
         if (!username || !password) {
-            handleError("⚠️ Both fields are required");
+            handleError("⚠️ Both fields are required"); // Show error if fields are empty
             return;
         }
 
         try {
             // Send login request to the API
             const res = await axios.post(API.SIGNIN, DefaultInputsData, { withCredentials: true });
+            const token = res.data.JWtoken; // Adjust based on your API response
+            localStorage.setItem('JWtoken', token); 
             login(); // Trigger login from AuthContext
             navigate('/dashboard'); // Redirect after successful login
-
-            // For console use only
-            // console.log(res.data.message);
         } catch (error) {
-            console.error("Login error:", error);
+            console.error("Login error:", error); // Log any errors
             handleError("⚠️ User Not Found"); // Handle login error
         }
     };
