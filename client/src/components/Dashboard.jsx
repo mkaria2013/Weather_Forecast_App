@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'; // Importing jwtDecode for decoding JWT tokens
 import logoutIcon from '../assets/logout.svg';
+import profile from '../assets/profile.svg'
 import CurrentWeather from './CurrentWeather.jsx';
 import WeatherMap from './WeatherMap.jsx';
 import Information from './Information.jsx';
 import { useAuth } from '../context/AuthContext';
 import { API } from '../API/api.jsx';
+import { useNavigate } from 'react-router-dom';
+import WeatherChatComponent from './WeatherChatComponent.jsx';
 
 export default function Dashboard() {
   // State variables to hold weather data, city input, loading status, and error messages
@@ -16,6 +19,7 @@ export default function Dashboard() {
   const [errorMessage, setErrorMessage] = useState('');
   const API_KEY = import.meta.env.VITE_API_KEY; // Accessing the API key from environment variables
   const { logout } = useAuth(); // Extracting the logout function from the AuthContext
+  const navigate = useNavigate();
 
   // Effect hook to fetch initial weather data based on user location or city from token
   useEffect(() => {
@@ -70,7 +74,7 @@ export default function Dashboard() {
   };
 
   // Function to handle user logout
-  const userLogout = async () => {
+  const handleLogout = async () => {
     try {
       await axios.post(API.LOGOUTUSER, {}, { withCredentials: true }); // Make a request to logout user
       localStorage.removeItem('JWtoken'); // Remove JWT from local storage
@@ -121,9 +125,16 @@ export default function Dashboard() {
           </button>
           <button
             className="w-full border-white md:w-auto px-6 py-3 text-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70" 
-            onClick={userLogout}> {/* Button to logout user */}
-            <img src={logoutIcon} alt="Logout" /> {/* Logout icon */}
+            onClick={(e)=> { navigate('/profile')}}> {/* Button to Profile */}
+            <img src={profile} alt="Logout" /> {/* Profile icon */}
           </button>
+          <button
+            className="w-full border-white md:w-auto px-6 py-3 text-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70" 
+            onClick={handleLogout}> {/* Button to logout user */}
+            <img src={logoutIcon} alt="Profile" /> {/* Logout icon */}
+          </button>
+
+        
         </label>
       </div>
 
@@ -139,6 +150,7 @@ export default function Dashboard() {
           <div className='flex flex-wrap justify-center m-3'>
             {weatherData && <Information data={weatherData} />} {/* Display additional weather information if available */}
           </div>
+          {weatherData && <WeatherChatComponent weatherData={weatherData} />} {/* Chat component */}
           {errorMessage && <div className="text-red-500">{errorMessage}</div>} {/* Display error messages if any */}
         </div>
       )}

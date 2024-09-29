@@ -73,7 +73,7 @@
             }
 
             const verifyPassword = await verifyUser.verfiyPassword(password);
-
+            
             if (verifyPassword) {
                 const { username, password, city, id } = verifyUser;
                 const payload = {
@@ -90,6 +90,10 @@
                     message: "✅ User loggedin successfully",
                     data: verifyUser,
                     JWtoken: token
+                })
+            } else {
+                return res.status(404).json({
+                    message:"⚠️ Please check password"
                 })
             }
 
