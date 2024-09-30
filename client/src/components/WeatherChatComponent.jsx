@@ -186,6 +186,7 @@ const WeatherChatComponent = ({ weatherData }) => {
     setTimeout(() => {
       setMessages((prevMessages) => [...prevMessages, botResponse]);
       setIsLoading(false);
+      speakResponse(botResponse.text); // Speak the bot's response
     }, 1000);
   };
 
@@ -198,7 +199,7 @@ const WeatherChatComponent = ({ weatherData }) => {
       response = { text: `The current temperature is ${temp}°C.`, type: 'bot' };
     } else if (lowerInput.includes('condition')) {
       response = { text: `The weather condition is ${weatherData.weather[0].description}.`, type: 'bot' };
-    } else if (lowerInput.includes('location') || lowerInput.includes('where am i')) { // Fix here
+    } else if (lowerInput.includes('location') || lowerInput.includes('where am i')) {
       response = { text: `You are in ${weatherData.name}.`, type: 'bot' };
     } else if (lowerInput.includes('humidity')) {
       response = { text: `The humidity level is ${weatherData.main.humidity}%.`, type: 'bot' };
@@ -209,6 +210,11 @@ const WeatherChatComponent = ({ weatherData }) => {
     }
 
     return response;
+  };
+
+  const speakResponse = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(utterance);
   };
 
   const handleClearChat = () => {
@@ -288,7 +294,7 @@ const WeatherChatComponent = ({ weatherData }) => {
         </div>
 
         {/* Chat Messages */}
-        <div className="p-3 overflow-y-auto flex-grow bg-gray-50">
+        <div className="p-3 overflow-y-auto flex-grow bg-gray-50" style={{ maxHeight: '300px' }}>
           {messages.map((msg, index) => (
             <div
               key={index}
