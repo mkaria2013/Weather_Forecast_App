@@ -158,7 +158,6 @@
 // export default WeatherChatComponent;
 
 
-// ChatBot Queries
 import React, { useState, useRef, useEffect } from 'react';
 
 const WeatherChatComponent = ({ weatherData }) => {
@@ -166,8 +165,9 @@ const WeatherChatComponent = ({ weatherData }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const chatRef = useRef(null);
-  const messageEndRef = useRef(null); // Ref for auto-scrolling
+  const messageEndRef = useRef(null);
   const [size, setSize] = useState({ width: 350, height: 400 });
+  const [inputValue, setInputValue] = useState('');
 
   const predefinedQuestions = [
     'What is the temperature?',
@@ -178,15 +178,19 @@ const WeatherChatComponent = ({ weatherData }) => {
   ];
 
   const handleSendMessage = (userInput) => {
-    const userMessage = { text: userInput, type: 'user' };
+    const trimmedInput = userInput.trim();
+    if (!trimmedInput) return; // Prevent sending empty messages
+
+    const userMessage = { text: trimmedInput, type: 'user' };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
+    setInputValue('');
     setIsLoading(true);
 
-    const botResponse = generateBotResponse(userInput);
+    const botResponse = generateBotResponse(trimmedInput);
     setTimeout(() => {
       setMessages((prevMessages) => [...prevMessages, botResponse]);
       setIsLoading(false);
-      speakResponse(botResponse.text); // Speak the bot's response
+      speakResponse(botResponse.text);
     }, 1000);
   };
 
@@ -218,11 +222,11 @@ const WeatherChatComponent = ({ weatherData }) => {
   };
 
   const handleClearChat = () => {
-    setMessages([]); // Clear all messages
+    setMessages([]);
   };
 
   const handleToggleChat = () => {
-    setIsVisible(!isVisible); // Toggle visibility
+    setIsVisible(!isVisible);
   };
 
   const handleDragStart = (e) => {
@@ -256,8 +260,8 @@ const WeatherChatComponent = ({ weatherData }) => {
     const startHeight = chatRef.current.offsetHeight;
 
     const handleMouseMove = (e) => {
-      const newWidth = Math.max(250, startWidth + (e.clientX - startX)); // Minimum width
-      const newHeight = Math.max(200, startHeight + (e.clientY - startY)); // Minimum height
+      const newWidth = Math.max(250, startWidth + (e.clientX - startX));
+      const newHeight = Math.max(200, startHeight + (e.clientY - startY));
       setSize({ width: newWidth, height: newHeight });
     };
 
@@ -270,7 +274,6 @@ const WeatherChatComponent = ({ weatherData }) => {
     document.addEventListener('mouseup', handleMouseUp);
   };
 
-  // Auto-scroll to the bottom when new messages are added
   useEffect(() => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -281,9 +284,9 @@ const WeatherChatComponent = ({ weatherData }) => {
     isVisible && (
       <div
         ref={chatRef}
-        className="fixed bottom-5 right-5 bg-white shadow-lg rounded-lg overflow-hidden flex flex-col transform transition-all duration-300 ease-in-out"
+        className="fixed bottom-5 right-5 bg-white shadow-lg rounded-lg overflow-hidden flex flex-col"
         style={{ width: size.width, height: size.height }}
-        onMouseDown={handleDragStart} // Allow dragging from anywhere in the component
+        onMouseDown={handleDragStart}
       >
         {/* Header */}
         <div className="flex justify-between items-center bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-3 cursor-default">
@@ -294,21 +297,18 @@ const WeatherChatComponent = ({ weatherData }) => {
         </div>
 
         {/* Chat Messages */}
-        <div className="p-3 overflow-y-auto flex-grow bg-gray-50" style={{ maxHeight: '300px' }}>
+        <div className="flex-grow overflow-y-auto bg-gray-50 p-3" style={{ maxHeight: '300px' }}>
           {messages.map((msg, index) => (
             <div
               key={index}
               className={`my-2 p-2 rounded-lg max-w-xs ${
-                msg.type === 'user'
-                  ? 'bg-blue-500 text-white self-end'
-                  : 'bg-gray-200 text-black self-start'
+                msg.type === 'user' ? 'bg-blue-500 text-white self-end' : 'bg-gray-200 text-black self-start'
               }`}
             >
               {msg.text}
             </div>
           ))}
           {isLoading && <div className="chat-bubble bot typing">...</div>}
-          {/* Auto-scroll target */}
           <div ref={messageEndRef} />
         </div>
 
@@ -334,7 +334,7 @@ const WeatherChatComponent = ({ weatherData }) => {
         {/* Resizing handle */}
         <div
           className="bg-gray-400 w-3 h-3 cursor-se-resize absolute right-0 bottom-0"
-          onMouseDown={handleResizeStart} // Start resizing when the handle is clicked
+          onMouseDown={handleResizeStart}
         />
       </div>
     )
