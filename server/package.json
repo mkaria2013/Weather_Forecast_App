@@ -16,7 +16,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon -r dotenv/config server.js",
+    "nodemon": "nodemon -r dotenv/config server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tej Dekiwadiya",
